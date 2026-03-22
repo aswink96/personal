@@ -1,0 +1,10 @@
+node_modules/
+anadhaan.db
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.png
+uploads/*.gif
+uploads/*.webp
+.env
+__pycache__/
+*.pyc

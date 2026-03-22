@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Anadhaan – Free Food Near You</title>
+  <link rel="stylesheet" href="/public/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ── NAVBAR ─────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="navbar-brand">
+      <span class="logo-icon">🍱</span>
+      <span class="logo-text">Anadhaan</span>
+    </div>
+    <div class="navbar-actions" id="navActions">
+      <button class="btn btn-ghost" id="btnLogin">Login</button>
+      <button class="btn btn-primary" id="btnRegister">Register</button>
+    </div>
+  </header>
+
+  <!-- ── MAIN PAGES ─────────────────────────────────────────── -->
+  <main>
+
+    <!-- HOME / FEED PAGE -->
+    <section id="pageFeed" class="page active">
+      <div class="hero">
+        <h1>Free food,<br><span class="accent">shared with love.</span></h1>
+        <p>Find free food being served near you, right now.</p>
+        <button class="btn btn-primary btn-lg" id="btnPostFood">+ Share Food</button>
+      </div>
+      <div class="section-title">
+        <h2>Active Food Spots</h2>
+        <span id="spotCount" class="badge"></span>
+      </div>
+      <div id="feedList" class="feed-list">
+        <div class="loader">Loading...</div>
+      </div>
+    </section>
+
+    <!-- DETAIL PAGE -->
+    <section id="pageDetail" class="page">
+      <button class="btn-back" id="btnBack">← Back</button>
+      <div id="detailContent"></div>
+    </section>
+
+    <!-- CREATE POST PAGE -->
+    <section id="pageCreate" class="page">
+      <button class="btn-back" id="btnBackCreate">← Back</button>
+      <div class="form-card">
+        <h2>Share Free Food 🍛</h2>
+        <p class="form-subtitle">Let people know where free food is available</p>
+        <form id="createForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" placeholder="e.g. Free biryani at Masjid gate" required maxlength="100">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="What food is it? Any details..." required rows="3" maxlength="500"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Location / Address</label>
+            <input type="text" name="location" placeholder="e.g. Near Anna Nagar Tower, Chennai" required maxlength="200">
+          </div>
+          <div class="form-group">
+            <label>Photo <span class="optional">(optional)</span></label>
+            <div class="photo-upload" id="photoUpload">
+              <input type="file" name="photo" accept="image/*" id="photoInput">
+              <div class="photo-placeholder" id="photoPlaceholder">
+                <span>📷</span>
+                <span>Tap to add photo</span>
+              </div>
+              <img id="photoPreview" class="photo-preview hidden" alt="Preview">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Feeds how many?</label>
+              <input type="number" name="people_count" placeholder="e.g. 50" required min="1" max="10000">
+            </div>
+            <div class="form-group">
+              <label>Available till</label>
+              <input type="datetime-local" name="expires_at" required id="expiresAt">
+            </div>
+          </div>
+          <div id="createError" class="error-msg hidden"></div>
+          <button type="submit" class="btn btn-primary btn-full">Post Food Spot</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- LOGIN PAGE -->
+    <section id="pageLogin" class="page">
+      <div class="auth-card">
+        <div class="auth-header">
+          <span class="logo-icon big">🍱</span>
+          <h2>Welcome back</h2>
+          <p>Login to share free food</p>
+        </div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="••••••" required>
+          </div>
+          <div id="loginError" class="error-msg hidden"></div>
+          <button type="submit" class="btn btn-primary btn-full">Login</button>
+        </form>
+        <p class="auth-switch">Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+      </div>
+    </section>
+
+    <!-- REGISTER PAGE -->
+    <section id="pageRegister" class="page">
+      <div class="auth-card">
+        <div class="auth-header">
+          <span class="logo-icon big">🍱</span>
+          <h2>Join Anadhaan</h2>
+          <p>Create account to share free food</p>
+        </div>
+        <form id="registerForm">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="yourname" required maxlength="30">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Min 6 characters" required minlength="6">
+          </div>
+          <div id="registerError" class="error-msg hidden"></div>
+          <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </form>
+        <p class="auth-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── BOTTOM NAV (logged in) ─────────────────────────────── -->
+  <nav class="bottom-nav" id="bottomNav" style="display:none">
+    <button class="bottom-nav-item active" id="navHome" data-page="feed">
+      <span>🏠</span><span>Home</span>
+    </button>
+    <button class="bottom-nav-item" id="navPost" data-page="create">
+      <span class="nav-post-btn">+</span>
+      <span>Post</span>
+    </button>
+    <button class="bottom-nav-item" id="navLogout">
+      <span>👤</span><span id="navUsername">Me</span>
+    </button>
+  </nav>
+
+  <script src="/public/app.js"></script>
+</body>
+</html>
